@@ -16,57 +16,43 @@ import com.dochub.entity.Rating;
 import com.dochub.service.RatingService;
 
 @RestController
-public class RatingController {
-	@Autowired
-	private RatingService ratingService;
+public class RatingController
+{
+    @Autowired
+    private RatingService ratingService;
+    @Autowired
+    private Transformer   transformer;
 
-	@PostMapping(value = "/rating/add")
-	public RatingDTO add(@RequestBody RatingDTO ratingDTO) {
-		if (ratingDTO == null)
-			throw new IllegalStateException("Rating is null");
-		Rating rating = transform(ratingDTO);
-		rating = ratingService.add(rating);
-		return transform(rating);
-	}
+    @PostMapping(value = "/rating/add")
+    public RatingDTO add(@RequestBody RatingDTO ratingDTO)
+    {
+        if (ratingDTO == null)
+            throw new IllegalStateException("Rating is null");
+        Rating rating = transformer.transform(ratingDTO);
+        rating = ratingService.add(rating);
+        return transformer.transform(rating);
+    }
 
-	@DeleteMapping(value = "/rating/delete/{id}")
-	public void deleteById(@PathVariable Long id) {
-		ratingService.deleteById(id);
-	}
+    @DeleteMapping(value = "/rating/delete/{id}")
+    public void deleteById(@PathVariable Long id)
+    {
+        ratingService.deleteById(id);
+    }
 
-	@GetMapping(value = "/rating/listall")
-	public List<RatingDTO> listAll() {
-		List<Rating> list = ratingService.listAll();
-		List<RatingDTO> listDTO = new ArrayList<>();
-		for (Rating rating : list) {
-			listDTO.add(transform(rating));
-		}
-		return listDTO;
-	}
+    @GetMapping(value = "/rating/listall")
+    public List<RatingDTO> listAll()
+    {
+        List<Rating> list = ratingService.listAll();
+        List<RatingDTO> listDTO = new ArrayList<>();
+        list.forEach(rating -> listDTO.add(transformer.transform(rating)));
+        return listDTO;
+    }
 
-	@GetMapping("/rating/{id}")
-	private RatingDTO one(@PathVariable Long id) {
-		RatingDTO dto = transform(ratingService.one(id));
-		return dto;
-	}
+    @GetMapping("/rating/{id}")
+    private RatingDTO one(@PathVariable Long id)
+    {
+        RatingDTO dto = transformer.transform(ratingService.one(id));
+        return dto;
+    }
 
-	private Rating transform(RatingDTO dto) {
-		Rating rating = new Rating();
-		rating.setComment(dto.getComment());
-		rating.setDoctor(dto.getDoctor());
-		rating.setId(dto.getId());
-		rating.setPatient(dto.getPatient());
-		rating.setRate(dto.getRate());
-		return rating;
-	}
-
-	private RatingDTO transform(Rating rating) {
-		RatingDTO dto = new RatingDTO();
-		dto.setComment(rating.getComment());
-		dto.setDoctor(rating.getDoctor());
-		dto.setId(rating.getId());
-		dto.setPatient(rating.getPatient());
-		dto.setRate(rating.getRate());
-		return dto;
-	}
 }
