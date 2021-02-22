@@ -15,13 +15,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Day {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private boolean workingDay;
-	private Date date;
-	@OneToMany(targetEntity = Visit.class, mappedBy = "day")
-	private List<Visit> visits;
-	private Long doctor;
+public class Day
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long        id;
+    private boolean     workingDay;
+    private Date        date;
+    @OneToMany(targetEntity = Visit.class, mappedBy = "day")
+    private List<Visit> visits;
+    private Long        doctor;
 }
