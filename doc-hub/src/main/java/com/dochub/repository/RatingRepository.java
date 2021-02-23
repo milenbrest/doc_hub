@@ -1,12 +1,13 @@
 package com.dochub.repository;
 
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.dochub.entity.Rating;
 
-public interface RatingRepository extends CrudRepository<Rating, Long>
+public interface RatingRepository
+        extends PagingAndSortingRepository<Rating, Long>
 {
-    List<Rating> findByDoctorId(Long doctor);
+    Page<Rating> findByDoctorId(Pageable pageable, Long doctor);
 }

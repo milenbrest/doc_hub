@@ -1,9 +1,15 @@
 package com.dochub.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.dochub.entity.Visit;
 
-public interface VisitRepository extends CrudRepository<Visit, Long> {
+public interface VisitRepository extends PagingAndSortingRepository<Visit, Long>
+{
+    List<Visit> findAllByDateAfter(Pageable pageable, Date date);
 
 }

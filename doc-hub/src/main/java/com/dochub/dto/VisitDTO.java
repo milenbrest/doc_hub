@@ -10,12 +10,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VisitDTO {
-	private Long id;
-	private Long doctor;
-	private Long patient;
-	private Long day;
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date date;
-	private VisitHourInterval visitHour;
+public class VisitDTO
+{
+    private Long              id;
+    private Long              doctor;
+    private Long              patient;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date              date;
+    private VisitHourInterval visitHour;
 }
