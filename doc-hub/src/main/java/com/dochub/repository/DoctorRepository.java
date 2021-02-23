@@ -1,9 +1,11 @@
 package com.dochub.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.dochub.entity.Doctor;
 
-public interface DoctorRepository extends CrudRepository<Doctor, Long> {
+public interface DoctorRepository
+        extends PagingAndSortingRepository<Doctor, Long>
+{
 
 }

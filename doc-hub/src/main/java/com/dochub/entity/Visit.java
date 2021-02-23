@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.dochub.utils.VisitHourInterval;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,9 +22,9 @@ import lombok.Setter;
 @Entity
 @Table(uniqueConstraints =
     { @UniqueConstraint(columnNames =
-                { "day", "visitHour", "patient_id" }),
+                { "date", "visitHour", "patient_id" }),
       @UniqueConstraint(columnNames =
-      { "day", "visitHour", "doctor_id" }) })
+      { "date", "visitHour", "doctor_id" }) })
 @Getter
 @Setter
 public class Visit
@@ -37,7 +38,7 @@ public class Visit
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient           patient;
-    private Long              day;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date              date;
     @Column(nullable = false)
     private VisitHourInterval visitHour;

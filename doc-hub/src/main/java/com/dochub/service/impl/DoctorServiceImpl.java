@@ -1,8 +1,8 @@
 package com.dochub.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dochub.entity.Doctor;
@@ -29,9 +29,9 @@ public class DoctorServiceImpl implements DoctorService
     }
 
     @Override
-    public List<Doctor> listAll()
+    public Page<Doctor> listAll(Pageable pageable)
     {
-        return (List<Doctor>) doctorRepository.findAll();
+        return doctorRepository.findAll(pageable);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class DoctorServiceImpl implements DoctorService
     }
 
     @Override
-    public List<Rating> findRatingsByDoctor(Long id)
+    public Page<Rating> findRatingsByDoctor(Pageable pageable, Long id)
     {
         if (id == null)
             throw new IllegalStateException("Doctor id is null");
-        return ratingRepository.findByDoctorId(id);
+        return ratingRepository.findByDoctorId(pageable, id);
     }
 
 }

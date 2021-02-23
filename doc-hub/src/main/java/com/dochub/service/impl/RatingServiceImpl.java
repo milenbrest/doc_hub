@@ -3,6 +3,8 @@ package com.dochub.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dochub.entity.Rating;
@@ -42,6 +44,12 @@ public class RatingServiceImpl implements RatingService
     {
         return ratingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
+    }
+
+    @Override
+    public Page<Rating> listAll(Pageable pageable)
+    {
+        return ratingRepository.findAll(pageable);
     }
 
 }
