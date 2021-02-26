@@ -2,7 +2,6 @@ package com.dochub.dto;
 
 import java.util.Date;
 
-import com.dochub.utils.VisitHourInterval;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -12,10 +11,10 @@ import lombok.Setter;
 @Setter
 public class VisitDTO
 {
-    private Long              id;
-    private Long              doctor;
-    private Long              patient;
+    private Long id;
+    private Long doctor;
+    private Long patient;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date              date;
-    private VisitHourInterval visitHour;
+    private Date date;
+    private int  visitHour;
 }

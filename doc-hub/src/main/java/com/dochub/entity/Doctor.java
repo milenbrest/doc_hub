@@ -40,11 +40,13 @@ public class Doctor
     private String            education;
     private String            qualification;
     private String            info;
-    @ElementCollection(targetClass = DayOfWeek.class)
+/*    @ElementCollection(targetClass = DayOfWeek.class)
     @Enumerated(EnumType.STRING)
     private List<DayOfWeek>   notWorkingDays;
     private VisitHourInterval workingFrom;
-    private VisitHourInterval workingTo;
+    private VisitHourInterval workingTo;*/
+    @OneToMany(targetEntity = Day.class, mappedBy = "doctor")
+    private List<Day>         scheduledDays;
     @OneToMany(targetEntity = Visit.class, mappedBy = "doctor")
     private List<Visit>       visits;
     @OneToMany(targetEntity = Rating.class, mappedBy = "doctor")

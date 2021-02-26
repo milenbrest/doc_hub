@@ -1,11 +1,14 @@
 package com.dochub.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.dochub.entity.Patient;
 import com.dochub.entity.Visit;
@@ -61,9 +64,11 @@ public class PatientServiceImpl implements PatientService
     public void cancelVisit(Long patientId, Long visitId)
     {
         if (visitId == null)
-            throw new IllegalStateException("Visit id cannot be null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Visit id cannot be null");
         if (patientId == null)
-            throw new IllegalStateException("Patient id cannot be null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Patient id cannot be null");
 
         Visit visit = visitRepository.findById(visitId)
                 .orElseThrow(() -> new EntityNotFoundException(visitId));
@@ -72,9 +77,11 @@ public class PatientServiceImpl implements PatientService
             throw new IllegalStateException(
                 "No Patient for given visitId: " + visitId);
         if (patient.getId() != patientId)
-            throw new IllegalStateException(
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "Visit :" + visitId + " is not owner by patient " + patientId);
-
+        if (new Date().after(visit.getFullDate()))
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                "Passed visits cannot be deleted.");
         visitRepository.deleteById(visitId);
     }
 

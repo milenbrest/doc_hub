@@ -40,7 +40,7 @@ public enum VisitHourInterval
     SIXTEEN_0(16, 0), //
     SIXTEEN_15(16, 15); //
 
-    VisitHourInterval(int minutes, int hour)
+    VisitHourInterval(int hour, int minutes)
     {
         this.hour = hour;
         this.minutes = minutes;

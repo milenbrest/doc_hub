@@ -1,5 +1,6 @@
 package com.dochub.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dochub.entity.Doctor;
 import com.dochub.entity.Rating;
+import com.dochub.entity.WorkingSchedule;
 
 public interface DoctorService
 {
@@ -26,4 +28,7 @@ public interface DoctorService
 
     @Transactional(readOnly = true)
     public Page<Rating> findRatingsByDoctor(Pageable pageable, Long id);
+
+    @Transactional(readOnly = true)
+    public List<WorkingSchedule> findScheduleByDate(Long id, Date date);
 }
