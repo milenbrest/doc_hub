@@ -17,6 +17,7 @@ public class DoctorServiceImpl implements DoctorService
 {
     @Autowired
     private DoctorRepository doctorRepository;
+    
     @Autowired
     private RatingRepository ratingRepository;
 
